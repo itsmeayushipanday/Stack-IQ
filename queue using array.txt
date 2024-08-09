@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Queue{
+    int *arr;
+    int front;
+    int rear;
+    int currsize;
+    int maxSize;
+    public:
+        Queue(){
+            arr = new int[16];
+            front = -1;
+            rear = -1;
+            currsize = 0;
+        }
+    Queue(int maxSize){
+        (*this).maxSize = maxSize;
+        front = -1;
+        rear = -1;
+        arr = new int[maxSize];
+        currsize = 0;
+    }
+    void push(int x){
+        if(currsize == maxSize){
+            cout<<"full"<<endl;
+            exit(1);
+        }
+        if(rear == -1){
+            rear = 0;
+            front = 0;
+        }
+        else{
+            rear = (rear+1)%maxSize;
+        }
+        arr[rear] = x;
+        currsize++;
+    }
+    
+    int pop(){
+        if(front == -1){
+            cout<<"empty"<<endl;
+        }
+        int popped = arr[front];
+        if(currsize == 1){
+            front = -1;
+            rear = -1;
+        }
+        currsize--;
+        return popped;
+    }
+    int top(){
+        if(front == -1){
+            cout<<"empty"<<endl;
+            exit(1);
+        }
+        int ele = arr[front];
+        return ele;
+    }
+    int size(){
+        return currsize;
+    }
+};
+
+int main(){
+    Queue q(4);
+    q.push(2);
+    q.push(7);
+    q.push(4);
+    q.push(9);
+    cout<<q.top()<<endl;
+    cout<<q.pop()<<endl;
+    cout<<q.size()<<endl;
+    return 0;
+}
